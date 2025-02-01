@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phaser Game</title>
+    <style>
+        @font-face {
+            font-family: 'MyCustomFont';
+            src: url('assets/font/Alkhemikal.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'MyCustomFont', Arial, sans-serif;
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
-    <script src="src/index.js"></script>
-    <script src="src/card.js"></script>
+    <script>
+        // Preload the font before starting Phaser
+        const loadFont = (name, url) => {
+            const font = new FontFace(name, `url(${url})`);
+            return font.load().then(() => {
+                document.fonts.add(font);
+                console.log(`Font ${name} loaded successfully`);
+            });
+        };
+
+        loadFont('MyCustomFont', 'assets/font/Alkhemikal.ttf').then(() => {
+            // Initialize Phaser after the font is loaded
+            import('./src/index.js').then((module) => {
+                module.startGame(); // Call your game's entry point
+            });
+        });
+    </script>
 </head>
+
 <body>
 </body>
+
 </html>
